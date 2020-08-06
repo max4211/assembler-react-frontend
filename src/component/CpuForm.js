@@ -26,29 +26,30 @@ class CpuForm extends React.Component {
     }
 
     onFileAccept = (acceptedFiles) => {
-        console.log('accepted files in cpu form: ' + acceptedFiles);
+        console.log('accepted files in cpu form: ');
+        console.log(acceptedFiles);
+        console.log(acceptedFiles[0]);
         this.setState({
-            file: acceptedFiles
+            file: acceptedFiles[0]
         })
     }
 
     handleSubmit(event) {
         console.log("attempting axios post request");
-        const myURL = "http://localhost:8080/api/v1/assemble"
+        const myURL = "http://localhost:8080/api/v1/user-profile/4211/image/upload"
         const formData = new FormData();
-        formData.set("type", this.state.type);
-        formData.set("base", this.state.base);
-        formData.add("file", this.state.file);
+        // formData.append("type", this.state.type);
+        // formData.append("base", this.state.base);
+        formData.append("file", this.state.file);
         axios({
-            method: 'post',
+            method: 'POST',
             url: myURL,
             data: formData,
             headers: {'Content-Type': 'multipart/form-data' }
             }).then((response) => {
                 console.log('token', response);
             })
-            .catch((response) => console.log('error', response));
-        alert('Form was submitted with \nType=' + this.state.type + '\nBase=' + this.state.base + '\nFile=' + this.state.file );
+            .catch((error) => console.log('error', error.response));
         event.preventDefault();
     }
 
