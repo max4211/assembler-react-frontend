@@ -17,7 +17,6 @@ class Drop extends React.Component {
         
           <Dropzone
             onDrop={this.onDrop}
-            accept=".s, .txt"
             minSize={0}
             maxSize={maxSize}
             multiple
@@ -28,7 +27,7 @@ class Drop extends React.Component {
                   <div {...getRootProps()} className="drop-div">
                     <input {...getInputProps()} />
                     {!isDragActive && 'Click here or drop a file to upload!'}
-                    {isDragActive && !isDragReject && "Drop it like it's hot!"}
+                    {isDragActive && !isDragReject && "Drop it like it's 🔥!"}
                     {isDragReject && "File type not accepted, sorry!"}
                   </div>
                   <ul className="list-group mt-2">
