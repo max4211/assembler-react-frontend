@@ -36,10 +36,8 @@ class CpuForm extends React.Component {
 
     handleSubmit(event) {
         console.log("attempting axios post request");
-        const myURL = "http://localhost:8080/api/v1/user-profile/4211/image/upload"
+        const myURL = "http://localhost:8080/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
         const formData = new FormData();
-        // formData.append("type", this.state.type);
-        // formData.append("base", this.state.base);
         formData.append("file", this.state.file);
         axios({
             method: 'POST',
