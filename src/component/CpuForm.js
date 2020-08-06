@@ -26,6 +26,7 @@ class CpuForm extends React.Component {
     }
 
     onFileAccept = (acceptedFiles) => {
+        console.log('accepted files in cpu form: ' + acceptedFiles);
         this.setState({
             file: acceptedFiles
         })
@@ -33,7 +34,7 @@ class CpuForm extends React.Component {
 
     handleSubmit(event) {
         // TODO - axios get request to get a file
-        alert('Form was submitted with \nType=' + this.state.type + '\nBase=' + this.state.base);
+        alert('Form was submitted with \nType=' + this.state.type + '\nBase=' + this.state.base + '\nFile=' + this.state.file );
         event.preventDefault();
     }
 
