@@ -8,9 +8,11 @@ class CpuForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {type: 'mif',
-                      base: 'hex'};
+                      base: 'hex',
+                      file: null};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.onFileAccept = this.onFileAccept.bind(this);
     }
 
     handleInputChange(event) {
@@ -23,17 +25,23 @@ class CpuForm extends React.Component {
         });
     }
 
+    onFileAccept = (acceptedFiles) => {
+        this.setState({
+            file: acceptedFiles
+        })
+    }
+
     handleSubmit(event) {
+        // TODO - axios get request to get a file
         alert('Form was submitted with \nType=' + this.state.type + '\nBase=' + this.state.base);
         event.preventDefault();
     }
 
     render() {
-
     
     return (
             <form onSubmit={this.handleSubmit}>
-            <Drop />
+            <Drop onFileAccept={this.onFileAccept}/>
             <div className="select-options">
                 <select className="selectpicker" name="type" value={this.state.type} onChange={this.handleInputChange}>
                     <option value="mif">Mif</option>
@@ -46,7 +54,6 @@ class CpuForm extends React.Component {
                     <option value="dec">10 (decimal)</option>
                 </select>
             </div>
-            {/* TODO - axios get request function with appropriate parameters */}
             <input type="submit" value="Assemble" id="translate-tag" className="submit-btn"></input>
             </form>
     );
