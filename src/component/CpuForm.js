@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class CpuForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {type: 'mif',
+        this.state = {type: 'Mif',
                       base: 'hex',
                       file: null};
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,7 +19,7 @@ class CpuForm extends React.Component {
         const target = event.target;
         const name = target.name;
         const value = target.value;
-        alert('Updated input element with name: ' + name + ' and value: ' + value);
+        // alert('Updated input element with name: ' + name + ' and value: ' + value);
         this.setState({
             [name]: value,
         });
@@ -58,9 +58,9 @@ class CpuForm extends React.Component {
             <Drop onFileAccept={this.onFileAccept}/>
             <div className="select-options">
                 <select className="selectpicker" name="type" value={this.state.type} onChange={this.handleInputChange}>
-                    <option value="mif">Mif</option>
-                    <option value="logism">Logism</option>
-                    <option value="txt">Text</option>
+                    <option value="Mif">Mif</option>
+                    <option value="Logism">Logism</option>
+                    <option value="Txt">Text</option>
                 </select>
                 <select className="selectpicker" name="base" value={this.state.base} onChange={this.handleInputChange}>
                     <option value="hex">16 (hex)</option>
