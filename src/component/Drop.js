@@ -19,6 +19,7 @@ class Drop extends React.Component {
             onDrop={this.onDrop}
             minSize={0}
             maxSize={maxSize}
+            accept=".s"
             multiple
           >
             {({getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles, acceptedFiles}) => {
