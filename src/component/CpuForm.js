@@ -8,7 +8,7 @@ class CpuForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {type: 'Mif',
-                      base: 'hex',
+                      base: 'HEX',
                       file: null};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -63,9 +63,9 @@ class CpuForm extends React.Component {
                     <option value="Txt">Text</option>
                 </select>
                 <select className="selectpicker" name="base" value={this.state.base} onChange={this.handleInputChange}>
-                    <option value="hex">16 (hex)</option>
-                    <option value="bin">2 (binary)</option>
-                    <option value="dec">10 (decimal)</option>
+                    <option value="HEX">16 (hex)</option>
+                    <option value="BIN">2 (binary)</option>
+                    <option value="DEC">10 (decimal)</option>
                 </select>
             </div>
             <input type="submit" value="Assemble" id="translate-tag" className="submit-btn"></input>
