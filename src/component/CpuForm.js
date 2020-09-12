@@ -60,7 +60,8 @@ class CpuForm extends React.Component {
                 <select className="selectpicker" name="type" value={this.state.type} onChange={this.handleInputChange}>
                     <option value="Mif">Mif</option>
                     <option value="Logism">Logism</option>
-                    <option value="Txt">Text</option>
+                    <option value="Mem">Mem</option>
+                    {/* <option value="Txt">Text</option> */}
                 </select>
                 <select className="selectpicker" name="base" value={this.state.base} onChange={this.handleInputChange}>
                     <option value="HEX">16 (hex)</option>
