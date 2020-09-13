@@ -43,9 +43,16 @@ class CpuForm extends React.Component {
             method: 'POST',
             url: myURL,
             data: formData,
+            responseType: 'blob',
             headers: {'Content-Type': 'multipart/form-data' }
             }).then((response) => {
                 console.log('token', response);
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'test.mem');
+                document.body.appendChild(link);
+                link.click();
             })
             .catch((error) => console.log('error', error.response));
         event.preventDefault();
@@ -58,9 +65,9 @@ class CpuForm extends React.Component {
             <Drop onFileAccept={this.onFileAccept}/>
             <div className="select-options">
                 <select className="selectpicker" name="type" value={this.state.type} onChange={this.handleInputChange}>
+                    <option value="Mem">Mem</option>
                     <option value="Mif">Mif</option>
                     <option value="Logism">Logism</option>
-                    <option value="Mem">Mem</option>
                     {/* <option value="Txt">Text</option> */}
                 </select>
                 <select className="selectpicker" name="base" value={this.state.base} onChange={this.handleInputChange}>
