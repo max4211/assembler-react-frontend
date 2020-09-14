@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class CpuForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {type: 'Mif',
+        this.state = {type: 'Mem',
                       base: 'HEX',
                       file: null};
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,11 +46,17 @@ class CpuForm extends React.Component {
             responseType: 'blob',
             headers: {'Content-Type': 'multipart/form-data' }
             }).then((response) => {
+                /* Log information for debug */
                 console.log('token', response);
+                console.log('headers', response.headers);
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
+                const fileName = response.headers['pragma'];
+
+                console.log('parsed filename from pragma: ', fileName);
+
                 link.href = url;
-                link.setAttribute('download', 'test.mem');
+                link.setAttribute('download', fileName);
                 document.body.appendChild(link);
                 link.click();
             })
