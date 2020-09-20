@@ -19,10 +19,10 @@ class Drop extends React.Component {
             onDrop={this.onDrop}
             minSize={0}
             maxSize={maxSize}
-            accept=".s"
+            // accept="text/x-asm"
             multiple
           >
-            {({getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles, acceptedFiles}) => {
+            {({getRootProps, getInputProps, isDragActive, isDragReject, isDragAccept, rejectedFiles, acceptedFiles}) => {
               return (
                 <div className="dropbox">
                   <div {...getRootProps()} className="drop-div">
