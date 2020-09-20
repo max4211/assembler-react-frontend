@@ -38,7 +38,7 @@ class CpuForm extends React.Component {
         console.log("attempting axios post request");
         // const myURL = "http://localhost:8080/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
         // const myURL = "https://localhost:443/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
-        const myURL = "http://assembler.ece350.com/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
+        const myURL = "https://assembler.ece350.com/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
         const formData = new FormData();
         formData.append("file", this.state.file);
         axios({
