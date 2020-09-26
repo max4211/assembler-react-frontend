@@ -36,7 +36,7 @@ class CpuForm extends React.Component {
 
     handleSubmit(event) {
         const myURL = "https://assembler.ece350.com/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
-        console.log("attempting axios post request on url", myURL);
+        // console.log("attempting axios post request on url", myURL);
         // const myURL = "http://localhost:8080/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
         // const myURL = "https://localhost:443/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
         
@@ -62,8 +62,12 @@ class CpuForm extends React.Component {
                 link.setAttribute('download', fileName);
                 document.body.appendChild(link);
                 link.click();
+
             })
-            .catch((error) => console.log('error', error.response));
+            .catch((error) => {
+                console.log('error', error.response);
+                alert("Sorry, could not translate file, please try again with properly formatted .s file");
+            })
         event.preventDefault();
     }
 
