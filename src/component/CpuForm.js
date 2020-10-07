@@ -87,7 +87,7 @@ class CpuForm extends React.Component {
                 <select className="selectpicker" name="base" value={this.state.base} onChange={this.handleInputChange}>
                     <option value="HEX">16 (hex)</option>
                     <option value="BIN">2 (binary)</option>
-                    <option value="DEC">10 (decimal)</option>
+                    {/* <option value="DEC">10 (decimal)</option> */}
                 </select>
             </div>
             <input type="submit" value="Assemble" id="translate-tag" className="submit-btn"></input>
