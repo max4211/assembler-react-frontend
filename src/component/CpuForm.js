@@ -8,7 +8,7 @@ class CpuForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {type: 'Mem',
-                      base: 'HEX',
+                      base: 'BIN',
                       file: null};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -36,9 +36,10 @@ class CpuForm extends React.Component {
 
     handleSubmit(event) {
         const myURL = "https://assembler.ece350.com/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
+        // const myURL = "http://assembler350-env-1.us-east-1.elasticbeanstalk.com/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
         // console.log("attempting axios post request on url", myURL);
         // const myURL = "http://localhost:8080/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
-        // const myURL = "https://localhost:443/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
+        // const myURL = "https://localhost/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
         
         const formData = new FormData();
         formData.append("file", this.state.file);
