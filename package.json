@@ -8,14 +8,12 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.2",
-    "bootstrap-select": "^1.13.18",
-    "mdbreact": "^4.27.0",
     "react": "^16.13.1",
-    "react-axios": "^2.0.3",
     "react-bootstrap-select": "^0.14.0",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.2.0",
-    "react-scripts": "^4.0.3"
+    "react-scripts": "^4.0.3",
+    "react-toastify": "^7.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "nodemon": "^2.0.7",
     "prettier": "2.2.1"
   }
 }

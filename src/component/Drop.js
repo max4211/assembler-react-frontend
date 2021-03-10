@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import Dropzone, { useDropzone } from "react-dropzone";
+import React from "react";
+import Dropzone from "react-dropzone";
 import "./Drop.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 

@@ -3,6 +3,7 @@ import "./CpuForm.css";
 import Drop from "./Drop";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { ToastContainer, toast } from "react-toastify";
 
 class CpuForm extends React.Component {
   constructor(props) {
@@ -61,6 +62,7 @@ class CpuForm extends React.Component {
         const fileName = response.headers["pragma"];
 
         console.log("parsed filename from pragma: ", fileName);
+        toast.success("Successfully assembled file!");
 
         link.href = url;
         link.setAttribute("download", fileName);
@@ -68,48 +70,51 @@ class CpuForm extends React.Component {
         link.click();
       })
       .catch((error) => {
-        console.log("error", error.response);
-        alert(
+        toast.error(
           "Sorry, could not translate file, please try again with properly formatted .s file"
         );
+        console.log("error", error.response);
       });
     event.preventDefault();
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <Drop onFileAccept={this.onFileAccept} />
-        <div className="select-options">
-          <select
-            className="selectpicker"
-            name="type"
-            value={this.state.type}
-            onChange={this.handleInputChange}
-          >
-            <option value="Mem">Mem</option>
-            <option value="Mif">Mif</option>
-            <option value="Logism">Logism</option>
-            {/* <option value="Txt">Text</option> */}
-          </select>
-          <select
-            className="selectpicker"
-            name="base"
-            value={this.state.base}
-            onChange={this.handleInputChange}
-          >
-            {/* <option value="HEX">16 (hex)</option> */}
-            <option value="BIN">2 (binary)</option>
-            {/* <option value="DEC">10 (decimal)</option> */}
-          </select>
-        </div>
-        <input
-          type="submit"
-          value="Assemble"
-          id="translate-tag"
-          className="submit-btn"
-        ></input>
-      </form>
+      <>
+        <ToastContainer />
+        <form onSubmit={this.handleSubmit}>
+          <Drop onFileAccept={this.onFileAccept} />
+          <div className="select-options">
+            <select
+              className="selectpicker"
+              name="type"
+              value={this.state.type}
+              onChange={this.handleInputChange}
+            >
+              <option value="Mem">Mem</option>
+              <option value="Mif">Mif</option>
+              <option value="Logism">Logism</option>
+              {/* <option value="Txt">Text</option> */}
+            </select>
+            <select
+              className="selectpicker"
+              name="base"
+              value={this.state.base}
+              onChange={this.handleInputChange}
+            >
+              {/* <option value="HEX">16 (hex)</option> */}
+              <option value="BIN">2 (binary)</option>
+              {/* <option value="DEC">10 (decimal)</option> */}
+            </select>
+          </div>
+          <input
+            type="submit"
+            value="Assemble"
+            id="translate-tag"
+            className="submit-btn"
+          ></input>
+        </form>
+      </>
     );
   }
 }
