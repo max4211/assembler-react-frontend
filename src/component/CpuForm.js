@@ -5,6 +5,9 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
 
+const route = process.env.NODE_ENV.includes("dev")
+  ? "http://localhost:8080/api/v1/assemble/"
+  : "https://assembler.ece350.com/api/v1/assemble/";
 class CpuForm extends React.Component {
   constructor(props) {
     super(props);
@@ -33,16 +36,19 @@ class CpuForm extends React.Component {
     });
   };
 
+  // const myURL = "https://assembler.ece350.com/api/v1/assemble/".concat(
+  //   this.state.type,
+  //   "/",
+  //   this.state.base
+  // );
+  // const myURL = "http://assembler350-env-1.us-east-1.elasticbeanstalk.com/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
+  // console.log("attempting axios post request on url", myURL);
+  // const myURL = "http://localhost:8080/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
+  // const myURL = "https://localhost/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
+
   handleSubmit(event) {
-    const myURL = "https://assembler.ece350.com/api/v1/assemble/".concat(
-      this.state.type,
-      "/",
-      this.state.base
-    );
-    // const myURL = "http://assembler350-env-1.us-east-1.elasticbeanstalk.com/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
-    // console.log("attempting axios post request on url", myURL);
-    // const myURL = "http://localhost:8080/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
-    // const myURL = "https://localhost/api/v1/assemble/".concat(this.state.type, "/", this.state.base);
+    const myURL = route.concat(this.state.type, "/", this.state.base);
+    console.log(myURL);
 
     const formData = new FormData();
     formData.append("file", this.state.file);
@@ -71,7 +77,7 @@ class CpuForm extends React.Component {
       })
       .catch((error) => {
         toast.error(
-          "Sorry, could not translate file, please try again with properly formatted .s file"
+          "Sorry, could not assemble file, please try again with properly formatted .s file"
         );
         console.log("error", error.response);
       });
