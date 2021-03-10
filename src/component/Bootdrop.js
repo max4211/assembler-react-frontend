@@ -1,10 +1,8 @@
-import React from 'react';
-import MDBFileupload from 'mdb-react-fileupload';
+import React from "react";
+import MDBFileupload from "mdb-react-fileupload";
 
 const Bootdrop = () => {
-  return (
-    <MDBFileupload />
-  );
+  return <MDBFileupload />;
 };
 
 export default Bootdrop;

@@ -1,7 +1,7 @@
-import React from 'react';
-import Header from './component/Header';
-import Assembler from './component/Assembler';
-import './App.css';
+import React from "react";
+import Header from "./component/Header";
+import Assembler from "./component/Assembler";
+import "./App.css";
 
 function App() {
   return (
