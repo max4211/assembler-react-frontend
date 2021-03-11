@@ -5,11 +5,11 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
 
-// const route = process.env.NODE_ENV.includes("dev")
-//   ? "http://localhost:8080/api/v1/assemble/"
-//   : "https://assembler.ece350.com/api/v1/assemble/";
-const route =
-  "http://assemblerspring-env.eba-ggqm2ptn.us-east-1.elasticbeanstalk.com/api/v1/assemble/";
+const route = process.env.NODE_ENV.includes("dev")
+  ? "http://localhost:8080/api/v1/assemble/"
+  : "https://assembler.ece350.com/api/v1/assemble/";
+// const route =
+//   "http://assemblerspring-env.eba-ggqm2ptn.us-east-1.elasticbeanstalk.com/api/v1/assemble/";
 class CpuForm extends React.Component {
   constructor(props) {
     super(props);
