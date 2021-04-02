@@ -4,6 +4,8 @@ import MuiFileUpload from "./MuiFileUpload";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 import Form from "react-bootstrap/Form";
 import MuiSelect from "./MuiSelect";
 import Logger from "./Logger";
@@ -21,6 +23,7 @@ export default function CpuForm() {
     file: null,
     isa: null,
   });
+  const [loading, setLoading] = React.useState(false);
 
   const isType = (filename, extension) =>
     filename.toLowerCase().includes(extension);
@@ -55,6 +58,7 @@ export default function CpuForm() {
       toast.error("Please select a file to assemble");
       return;
     }
+    setLoading(true);
     const myURL = route.concat(state.type, "/", state.base);
 
     // TODO: Refactor file download
@@ -69,6 +73,7 @@ export default function CpuForm() {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((response) => {
+        setLoading(false);
         /* Log information for debug */
         const data = response.data;
         const filename = response.headers["pragma"];
@@ -76,6 +81,7 @@ export default function CpuForm() {
         toast.success("Successfully assembled file!");
       })
       .catch((error) => {
+        setLoading(false);
         logger.log("error: ");
         logger.log(error);
         if (error.response) {
@@ -97,7 +103,7 @@ export default function CpuForm() {
           downloadFile(data, filename);
           toast.error("File failed validation, please address errors");
         } else if (!error.response) {
-          toast.error("Sorry our server is down plesae try again later.");
+          toast.error("Sorry our server is down please try again later.");
         } else {
           toast.error(
             "Sorry, could not assemble file, please try again with properly formatted .s file"
@@ -191,7 +197,7 @@ export default function CpuForm() {
             label="Base"
           />
         </div>
-        <MuiButton onClick={handleSubmit} />
+        {loading ? <CircularProgress /> : <MuiButton onClick={handleSubmit} />}
       </Form>
     </>
   );
