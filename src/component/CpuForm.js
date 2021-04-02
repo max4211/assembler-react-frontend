@@ -21,15 +21,6 @@ export default function CpuForm() {
     isa: null,
   });
 
-  const handleInputChange = (event) => {
-    const target = event.target;
-    const name = target.name;
-    const value = target.value;
-    setState({
-      [name]: value,
-    });
-  };
-
   const isValidISAFile = (file) => {
     const lower = file.name.toLowerCase();
     return lower.includes(".xml");
