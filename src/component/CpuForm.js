@@ -1,6 +1,7 @@
 import React from "react";
 import "./CpuForm.css";
-import Drop from "./Drop";
+import MuiButton from "./MuiButton";
+import Button from "@material-ui/core/Button";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -121,7 +122,7 @@ export default function CpuForm() {
   const baseOptions = (
     <>
       {/* <option value="HEX">16 (hex)</option> */}
-      <option value="BIN">2 (binary)</option>
+      <option value="BIN">Binary (2)</option>
       {/* <option value="DEC">10 (decimal)</option> */}
     </>
   );
@@ -129,7 +130,7 @@ export default function CpuForm() {
   return (
     <>
       <ToastContainer />
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.File
             label={
@@ -154,9 +155,6 @@ export default function CpuForm() {
             id="custom-isa"
           />
         </Form.Group>
-      </Form>
-      <form onSubmit={handleSubmit}>
-        {/* <Drop onFileAccept={onFileAccept} /> */}
         <div className="select-options">
           <MuiSelect
             options={fileTypeOptions}
@@ -171,13 +169,9 @@ export default function CpuForm() {
             label="Base"
           />
         </div>
-        <input
-          type="submit"
-          value="Assemble"
-          id="translate-tag"
-          className="submit-btn"
-        ></input>
-      </form>
+      </Form>
+
+      <MuiButton />
     </>
   );
 }
