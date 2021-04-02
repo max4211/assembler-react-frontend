@@ -1,13 +1,13 @@
 div.assembler-wrapper {
-    width: 80%;
-    height: 60%;
-    margin: auto;
+  width: 50%;
+  height: 60%;
+  margin: auto;
 }
 
 div.form-div {
-    width: 90vw;
-    height: 40vh;
-    padding-top: 40px;
-    margin: auto;
-    align-content: center;
+  width: 90%;
+  height: 100%;
+  padding-top: 40px;
+  margin: auto;
+  align-content: center;
 }
