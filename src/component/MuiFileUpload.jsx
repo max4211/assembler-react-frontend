@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function UploadButtons({ accept, label, id }) {
+export default function MuiFileUpload({ accept, label, id, handleChange }) {
   const classes = useStyles();
 
   return (
@@ -23,8 +23,8 @@ export default function UploadButtons({ accept, label, id }) {
         accept={accept}
         className={classes.input}
         id={id}
-        multiple
         type="file"
+        onChange={handleChange}
       />
       <label htmlFor={id}>
         <Button

@@ -128,13 +128,44 @@ export default function CpuForm() {
   );
   const acceptMIPS = ".s, .txt, .text";
   const acceptISA = ".xml";
+  const idMIPS = "mips-upload";
+  const idISA = "isa-upload";
+  const getFile = (id) => {
+    const element = document.getElementById(id);
+    if (element && element.files) {
+      return element.files[0];
+    }
+    return null;
+  };
+  const checkMIPSFile = () => {
+    console.log("Checking MIPS File");
+    const file = getFile(idMIPS);
+    console.log(file);
+  };
+  const checkISAFile = () => {
+    console.log("Checking ISA File");
+    const file = getFile(idISA);
+    console.log(file);
+  };
 
   return (
     <>
       <ToastContainer />
       <Form>
-        <MuiFileUpload accept={acceptMIPS} label="MIPS Code" id="mips-upload" />
-        <MuiFileUpload accept={acceptISA} label="ISA Config" id="isa-upload" />
+        <MuiFileUpload
+          accept={acceptMIPS}
+          label="MIPS Code"
+          id={idMIPS}
+          handleChange={checkMIPSFile}
+          // ref={mipsUploadRef}
+        />
+        <MuiFileUpload
+          accept={acceptISA}
+          label="ISA Config"
+          id={idISA}
+          handleChange={checkISAFile}
+          // ref={isaUploadRef}
+        />
         <div className="select-options">
           <MuiSelect
             options={fileTypeOptions}
