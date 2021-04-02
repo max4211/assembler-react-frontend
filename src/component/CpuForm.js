@@ -30,36 +30,23 @@ export default function CpuForm() {
     });
   };
 
-  const isISAFile = (filename) => {
-    const lower = filename.toLowerCase();
+  const isValidISAFile = (file) => {
+    const lower = file.name.toLowerCase();
     return lower.includes(".xml");
   };
 
-  const isAssemblyFile = (filename) => {
-    const lower = filename.toLowerCase();
+  const isValidMIPSFile = (file) => {
+    const lower = file.name.toLowerCase();
     return (
       lower.includes(".s") || lower.inclues(".txt") || lower.includes(".text")
     );
   };
 
-  const onFileAccept = (acceptedFiles) => {
-    acceptedFiles.forEach((file) => {
-      console.log(`file.name: ${file.name}`);
-      if (isAssemblyFile(file.name)) {
-        setState({
-          ...state,
-          file: file,
-        });
-      } else if (isISAFile(file.name)) {
-        setState({
-          ...state,
-          isa: file,
-        });
-      }
-    });
-  };
-
   const handleSubmit = (event) => {
+    if (state.file == null) {
+      toast.error("Please select a file to assemble");
+      return;
+    }
     const myURL = route.concat(state.type, "/", state.base);
     console.log(myURL);
 
@@ -141,19 +128,23 @@ export default function CpuForm() {
     console.log("Checking MIPS File");
     const file = getFile(idMIPS);
     console.log(file);
-    setState({
-      ...state,
-      file: file,
-    });
+    if (isValidMIPSFile(file)) {
+      setState({
+        ...state,
+        file: file,
+      });
+    }
   };
   const checkISAFile = () => {
     console.log("Checking ISA File");
     const file = getFile(idISA);
     console.log(file);
-    setState({
-      ...state,
-      isa: file,
-    });
+    if (isValidISAFile(file)) {
+      setState({
+        ...state,
+        isa: file,
+      });
+    }
   };
 
   return (
