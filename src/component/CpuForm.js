@@ -133,8 +133,8 @@ export default function CpuForm() {
     <>
       <ToastContainer />
       <Form>
-        <MuiFileUpload accept={acceptMIPS} label="MIPS Code" />
-        <MuiFileUpload accept={acceptISA} label="ISA Config" />
+        <MuiFileUpload accept={acceptMIPS} label="MIPS Code" id="mips-upload" />
+        <MuiFileUpload accept={acceptISA} label="ISA Config" id="isa-upload" />
         <div className="select-options">
           <MuiSelect
             options={fileTypeOptions}

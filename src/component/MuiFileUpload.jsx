@@ -14,11 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function UploadButtons({
-  accept = ".s, .txt, .text, .xml",
-  label = "MIPS File",
-  color = "default",
-}) {
+export default function UploadButtons({ accept, label, id }) {
   const classes = useStyles();
 
   return (
@@ -26,14 +22,14 @@ export default function UploadButtons({
       <input
         accept={accept}
         className={classes.input}
-        id="contained-button-file"
+        id={id}
         multiple
         type="file"
       />
-      <label htmlFor="contained-button-file">
+      <label htmlFor={id}>
         <Button
           variant="contained"
-          color={color}
+          color="default"
           component="span"
           startIcon={<PublishIcon />}
         >
