@@ -82,6 +82,10 @@ export default function CpuForm() {
           logger.log("error response: ");
           logger.log(error.response);
         }
+        if (error.response && error.response.status) {
+          logger.log(`error.response.status: ${error.response.status}`);
+        }
+
         if (
           error.response &&
           error.response.status &&
@@ -92,6 +96,8 @@ export default function CpuForm() {
           const filename = response.headers["pragma"];
           downloadFile(data, filename);
           toast.error("File failed validation, please address errors");
+        } else if (!error.response) {
+          toast.error("Sorry our server is down plesae try again later.");
         } else {
           toast.error(
             "Sorry, could not assemble file, please try again with properly formatted .s file"
