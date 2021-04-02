@@ -19,7 +19,7 @@ export default function Converter() {
   const regexMap = new Map();
   regexMap.set(2, new RegExp("^[01]+$"));
   regexMap.set(10, new RegExp("^\\d*$"));
-  regexMap.set(16, new RegExp("^[0123456789ABCDEF]+$"));
+  regexMap.set(16, new RegExp("^[0123456789abcdef]+$"));
   const options = (
     <>
       <option value={2}>Binary</option>
@@ -68,8 +68,8 @@ export default function Converter() {
                 type="text"
                 value={state.fromValue}
                 onChange={(e) => {
-                  const regex = new RegExp("^\\d*$");
                   const value = e.target.value;
+                  const regex = new RegExp("^[0123456789abcdef]+$");
                   if (regex.test(value)) {
                     setState({ ...state, fromValue: value });
                   }
