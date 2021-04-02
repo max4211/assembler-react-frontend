@@ -5,6 +5,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
 
+const validationError = 450;
 const route = process.env.NODE_ENV.includes("dev")
   ? "http://localhost:8080/api/v1/assemble/"
   : "https://assembler.ece350.com/api/v1/assemble/";
@@ -67,10 +68,25 @@ class CpuForm extends React.Component {
         link.click();
       })
       .catch((error) => {
-        toast.error(
-          "Sorry, could not assemble file, please try again with properly formatted .s file"
-        );
-        console.log("error", error.response);
+        console.log(error.response);
+        if (error.response.status === validationError) {
+          const url = window.URL.createObjectURL(
+            new Blob([error.response.data])
+          );
+          const link = document.createElement("a");
+          const fileName = error.response.headers["pragma"];
+
+          toast.error("File failed validation, please address errors");
+
+          link.href = url;
+          link.setAttribute("download", fileName);
+          document.body.appendChild(link);
+          link.click();
+        } else {
+          toast.error(
+            "Sorry, could not assemble file, please try again with properly formatted .s file"
+          );
+        }
       });
     event.preventDefault();
   }
