@@ -1,7 +1,7 @@
 import React from "react";
 import "./CpuForm.css";
 import MuiButton from "./MuiButton";
-import Button from "@material-ui/core/Button";
+import MuiFileUpload from "./MuiFileUpload";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -126,35 +126,15 @@ export default function CpuForm() {
       {/* <option value="DEC">10 (decimal)</option> */}
     </>
   );
+  const acceptMIPS = ".s, .txt, .text";
+  const acceptISA = ".xml";
 
   return (
     <>
       <ToastContainer />
-      <Form onSubmit={handleSubmit}>
-        <Form.Group>
-          <Form.File
-            label={
-              <>
-                <h3>Upload File to Assemble</h3>
-                <p>Please upload a properly formatted MIPS file</p>
-              </>
-            }
-            id="assemble=file"
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.File
-            label={
-              <>
-                <h3>Upload Custom ISA</h3>
-                <p>
-                  Please upload an XML file with your additional instructions
-                </p>
-              </>
-            }
-            id="custom-isa"
-          />
-        </Form.Group>
+      <Form>
+        <MuiFileUpload accept={acceptMIPS} label="MIPS Code" />
+        <MuiFileUpload accept={acceptISA} label="ISA Config" />
         <div className="select-options">
           <MuiSelect
             options={fileTypeOptions}
@@ -169,9 +149,8 @@ export default function CpuForm() {
             label="Base"
           />
         </div>
+        <MuiButton onClick={handleSubmit} />
       </Form>
-
-      <MuiButton />
     </>
   );
 }

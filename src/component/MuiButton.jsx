@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function IconLabelButtons() {
+export default function IconLabelButtons({ onClick }) {
   const classes = useStyles();
 
   return (
@@ -24,6 +24,7 @@ export default function IconLabelButtons() {
       size="large"
       className={classes.button}
       startIcon={<SettingsIcon />}
+      onClick={onClick}
     >
       Assemble
     </Button>
