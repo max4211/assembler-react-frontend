@@ -3,3 +3,8 @@
   padding: 0;
   font-family: OpenSans, Helvetica, Arial, SansSerif;
 }
+
+.file-success {
+  color: #04af2c;
+  /* background-color: #c3e6cb; */
+}

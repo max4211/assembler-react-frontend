@@ -14,7 +14,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MuiFileUpload({ accept, label, id, handleChange }) {
+export default function MuiFileUpload({
+  accept,
+  label,
+  id,
+  handleChange,
+  file,
+}) {
   const classes = useStyles();
 
   return (
@@ -36,6 +42,7 @@ export default function MuiFileUpload({ accept, label, id, handleChange }) {
           {label}
         </Button>
       </label>
+      {file && file.name && <label className="file-success">{file.name}</label>}
     </div>
   );
 }

@@ -165,14 +165,14 @@ export default function CpuForm() {
           label="MIPS Code"
           id={idMIPS}
           handleChange={checkMIPSFile}
-          // ref={mipsUploadRef}
+          file={state.file}
         />
         <MuiFileUpload
           accept={acceptISA}
           label="ISA Config"
           id={idISA}
           handleChange={checkISAFile}
-          // ref={isaUploadRef}
+          file={state.isa}
         />
         <div className="select-options">
           <MuiSelect
