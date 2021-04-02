@@ -4,50 +4,70 @@ import Drop from "./Drop";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
+import AcceptedFile from "./AcceptedFile";
 
 const validationError = 450;
 const route = process.env.NODE_ENV.includes("dev")
   ? "http://localhost:8080/api/v1/assemble/"
   : "https://assembler.ece350.com/api/v1/assemble/";
-// const route =
-//   "http://assemblerspring-env.eba-ggqm2ptn.us-east-1.elasticbeanstalk.com/api/v1/assemble/";
-// TODO: Upload second file
-class CpuForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { type: "Mem", base: "BIN", file: null, isa: null };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.onFileAccept = this.onFileAccept.bind(this);
-  }
 
-  handleInputChange(event) {
+// TODO: Upload second file
+export default function CpuForm() {
+  const [state, setState] = React.useState({
+    type: "Mem",
+    base: "BIN",
+    file: null,
+    isa: null,
+  });
+
+  const handleInputChange = (event) => {
     const target = event.target;
     const name = target.name;
     const value = target.value;
     // alert('Updated input element with name: ' + name + ' and value: ' + value);
-    this.setState({
+    setState({
       [name]: value,
-    });
-  }
-
-  onFileAccept = (acceptedFiles) => {
-    // console.log("accepted files in cpu form: ");
-    console.log(acceptedFiles);
-    // console.log(acceptedFiles[0]);
-    this.setState({
-      file: acceptedFiles[0],
-      isa: acceptedFiles[0],
     });
   };
 
-  handleSubmit(event) {
-    const myURL = route.concat(this.state.type, "/", this.state.base);
+  const isISAFile = (filename) => {
+    const lower = filename.toLowerCase();
+    return lower.includes(".xml");
+  };
+
+  const isAssemblyFile = (filename) => {
+    const lower = filename.toLowerCase();
+    return (
+      lower.includes(".s") || lower.inclues(".txt") || lower.includes(".text")
+    );
+  };
+
+  const onFileAccept = (acceptedFiles) => {
+    // console.log("accepted files in cpu form: ");
+    console.log(acceptedFiles);
+    acceptedFiles.forEach((file) => {
+      console.log(`file.name: ${file.name}`);
+      if (isAssemblyFile(file.name)) {
+        setState({
+          ...state,
+          file: file,
+        });
+      } else if (isISAFile(file.name)) {
+        setState({
+          ...state,
+          isa: file,
+        });
+      }
+    });
+  };
+
+  const handleSubmit = (event) => {
+    const myURL = route.concat(state.type, "/", state.base);
     console.log(myURL);
 
     const formData = new FormData();
-    formData.append("file", this.state.file);
-    formData.append("isa", this.state.isa);
+    formData.append("file", state.file);
+    formData.append("isa", state.isa);
     axios({
       method: "POST",
       url: myURL,
@@ -92,47 +112,43 @@ class CpuForm extends React.Component {
         }
       });
     event.preventDefault();
-  }
+  };
 
-  render() {
-    return (
-      <>
-        <ToastContainer />
-        <form onSubmit={this.handleSubmit}>
-          <Drop onFileAccept={this.onFileAccept} />
-          <div className="select-options">
-            <select
-              className="selectpicker"
-              name="type"
-              value={this.state.type}
-              onChange={this.handleInputChange}
-            >
-              <option value="Mem">Mem</option>
-              <option value="Mif">Mif</option>
-              <option value="Logism">Logism</option>
-              {/* <option value="Txt">Text</option> */}
-            </select>
-            <select
-              className="selectpicker"
-              name="base"
-              value={this.state.base}
-              onChange={this.handleInputChange}
-            >
-              {/* <option value="HEX">16 (hex)</option> */}
-              <option value="BIN">2 (binary)</option>
-              {/* <option value="DEC">10 (decimal)</option> */}
-            </select>
-          </div>
-          <input
-            type="submit"
-            value="Assemble"
-            id="translate-tag"
-            className="submit-btn"
-          ></input>
-        </form>
-      </>
-    );
-  }
+  return (
+    <>
+      <ToastContainer />
+      <form onSubmit={handleSubmit}>
+        <Drop onFileAccept={onFileAccept} />
+        <div className="select-options">
+          <select
+            className="selectpicker m-2"
+            name="type"
+            value={state.type}
+            onChange={handleInputChange}
+          >
+            <option value="Mem">Mem</option>
+            <option value="Mif">Mif</option>
+            <option value="Logism">Logism</option>
+            {/* <option value="Txt">Text</option> */}
+          </select>
+          <select
+            className="selectpicker"
+            name="base"
+            value={state.base}
+            onChange={handleInputChange}
+          >
+            {/* <option value="HEX">16 (hex)</option> */}
+            <option value="BIN">2 (binary)</option>
+            {/* <option value="DEC">10 (decimal)</option> */}
+          </select>
+        </div>
+        <input
+          type="submit"
+          value="Assemble"
+          id="translate-tag"
+          className="submit-btn"
+        ></input>
+      </form>
+    </>
+  );
 }
-
-export default CpuForm;
