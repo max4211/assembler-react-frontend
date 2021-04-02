@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import SettingsIcon from "@material-ui/icons/Settings";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -9,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MuiButton({ onClick }) {
+export default function MuiButton({ onClick, label, icon }) {
   const classes = useStyles();
 
   return (
@@ -18,10 +17,10 @@ export default function MuiButton({ onClick }) {
       color="primary"
       size="large"
       className={classes.button}
-      startIcon={<SettingsIcon />}
+      startIcon={icon}
       onClick={onClick}
     >
-      Assemble
+      {label}
     </Button>
   );
 }

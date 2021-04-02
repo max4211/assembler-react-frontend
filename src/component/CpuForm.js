@@ -9,6 +9,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Form from "react-bootstrap/Form";
 import MuiSelect from "./MuiSelect";
 import Logger from "./Logger";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 const validationError = 450;
 const route = process.env.NODE_ENV.includes("dev")
@@ -197,7 +198,15 @@ export default function CpuForm() {
             label="Base"
           />
         </div>
-        {loading ? <CircularProgress /> : <MuiButton onClick={handleSubmit} />}
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <MuiButton
+            onClick={handleSubmit}
+            icon={<SettingsIcon />}
+            label="Assemble"
+          />
+        )}
       </Form>
     </>
   );
