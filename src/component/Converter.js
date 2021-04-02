@@ -17,9 +17,9 @@ export default function Converter() {
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState("");
   const regexMap = new Map();
-  regexMap.set(2, /^[01]+$/);
-  regexMap.set(10, /^\\d*$/);
-  regexMap.set(10, /^[0123456789ABCDEF]+$/);
+  regexMap.set(2, new RegExp("^[01]+$"));
+  regexMap.set(10, new RegExp("^\\d*$"));
+  regexMap.set(16, new RegExp("^[0123456789ABCDEF]+$"));
   const options = (
     <>
       <option value={2}>Binary</option>
@@ -28,7 +28,7 @@ export default function Converter() {
     </>
   );
   const validateInput = () => {
-    const regex = regexMap.get(state.fromBase);
+    const regex = regexMap.get(parseInt(state.fromBase, 10));
     if (!regex.test(state.fromValue)) {
       setError(true);
       setHelperText("Please enter valid number");
@@ -68,8 +68,10 @@ export default function Converter() {
                 type="text"
                 value={state.fromValue}
                 onChange={(e) => {
-                  if (regexMap.get(10).test(e.target.value)) {
-                    setState({ ...state, fromValue: e.target.value });
+                  const regex = new RegExp("^\\d*$");
+                  const value = e.target.value;
+                  if (regex.test(value)) {
+                    setState({ ...state, fromValue: value });
                   }
                 }}
                 error={error}
