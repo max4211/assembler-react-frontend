@@ -64,7 +64,7 @@ export default function Converter() {
               />
               <TextField
                 label="From"
-                style={{ margin: "20px", width: "60%" }}
+                style={{ margin: "22px", width: "60%" }}
                 type="text"
                 value={state.fromValue}
                 onChange={(e) => {
@@ -86,7 +86,8 @@ export default function Converter() {
                 label="To"
               />
               <TextField
-                style={{ margin: "20px", width: "60%" }}
+                label="To"
+                style={{ margin: "22px", width: "60%" }}
                 value={state.toValue}
                 type="text"
               />
