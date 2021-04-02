@@ -1,5 +1,4 @@
 import React from "react";
-import "./Assembler.css";
 import CpuForm from "./CpuForm";
 
 function Assembler() {

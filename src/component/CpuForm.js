@@ -1,5 +1,4 @@
 import React from "react";
-import "./CpuForm.css";
 import MuiButton from "./MuiButton";
 import MuiFileUpload from "./MuiFileUpload";
 import axios from "axios";
@@ -48,6 +47,7 @@ export default function CpuForm() {
     const myURL = route.concat(state.type, "/", state.base);
     console.log(myURL);
 
+    // TODO: Refactor file download
     const formData = new FormData();
     formData.append("file", state.file);
     formData.append("isa", state.isa);
