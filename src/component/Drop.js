@@ -38,8 +38,11 @@ class Drop extends React.Component {
               </div>
               <ul className="list-group mt-2">
                 {acceptedFiles.length > 0 &&
-                  acceptedFiles.map((acceptedFile) => (
-                    <li className="list-group-item list-group-item-success">
+                  acceptedFiles.map((acceptedFile, index) => (
+                    <li
+                      className="list-group-item list-group-item-success"
+                      key={index}
+                    >
                       {acceptedFile.name}
                     </li>
                   ))}

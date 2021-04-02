@@ -11,10 +11,11 @@ const route = process.env.NODE_ENV.includes("dev")
   : "https://assembler.ece350.com/api/v1/assemble/";
 // const route =
 //   "http://assemblerspring-env.eba-ggqm2ptn.us-east-1.elasticbeanstalk.com/api/v1/assemble/";
+// TODO: Upload second file
 class CpuForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { type: "Mem", base: "BIN", file: null };
+    this.state = { type: "Mem", base: "BIN", file: null, isa: null };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.onFileAccept = this.onFileAccept.bind(this);
@@ -31,11 +32,12 @@ class CpuForm extends React.Component {
   }
 
   onFileAccept = (acceptedFiles) => {
-    console.log("accepted files in cpu form: ");
+    // console.log("accepted files in cpu form: ");
     console.log(acceptedFiles);
-    console.log(acceptedFiles[0]);
+    // console.log(acceptedFiles[0]);
     this.setState({
       file: acceptedFiles[0],
+      isa: acceptedFiles[0],
     });
   };
 
@@ -45,6 +47,7 @@ class CpuForm extends React.Component {
 
     const formData = new FormData();
     formData.append("file", this.state.file);
+    formData.append("isa", this.state.isa);
     axios({
       method: "POST",
       url: myURL,
