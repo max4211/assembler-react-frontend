@@ -141,11 +141,19 @@ export default function CpuForm() {
     console.log("Checking MIPS File");
     const file = getFile(idMIPS);
     console.log(file);
+    setState({
+      ...state,
+      file: file,
+    });
   };
   const checkISAFile = () => {
     console.log("Checking ISA File");
     const file = getFile(idISA);
     console.log(file);
+    setState({
+      ...state,
+      isa: file,
+    });
   };
 
   return (
