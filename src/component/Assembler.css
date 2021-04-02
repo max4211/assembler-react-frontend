@@ -2,12 +2,17 @@ div.assembler-wrapper {
   width: 50%;
   height: 60%;
   margin: auto;
+
+  padding: 20px;
 }
 
 div.form-div {
   width: 90%;
   height: 100%;
-  padding-top: 40px;
+  padding: 40px;
   margin: auto;
   align-content: center;
+  border-radius: 25px;
+  border: 2px solid darkblue;
+  box-shadow: 2px 2px #888888;
 }
