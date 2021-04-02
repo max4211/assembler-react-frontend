@@ -23,9 +23,13 @@ export default function CpuForm() {
 
   const isType = (filename, extension) =>
     filename.toLowerCase().includes(extension);
+  // TODO: Frontend xml schema validation
+  const isValidXML = (file) => {
+    return true;
+  };
   const isValidISAFile = (file) => {
     const filename = file.name;
-    return isType(filename, ".xml");
+    return isType(filename, ".xml") && isValidXML(file);
   };
   const isValidMIPSFile = (file) => {
     const filename = file.name;
