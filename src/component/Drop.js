@@ -3,7 +3,7 @@ import Dropzone from "react-dropzone";
 import "./Drop.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function Drop({ onFileAccept }) {
+export default function Drop({ onFileAccept, attachedFiles }) {
   const onDrop = (acceptedFiles) => {
     onFileAccept(acceptedFiles);
   };
@@ -28,8 +28,6 @@ export default function Drop({ onFileAccept }) {
         getInputProps,
         isDragActive,
         isDragReject,
-        isDragAccept,
-        rejectedFiles,
         acceptedFiles,
       }) => {
         return (
@@ -38,19 +36,8 @@ export default function Drop({ onFileAccept }) {
               <input {...getInputProps()} />
               {!isDragActive && "Click here or drop a (.s) file to upload!"}
               {isDragActive && !isDragReject && "Drop it like it's 🔥!"}
-              {isDragReject && "File type not accepted, sorry!"}
             </div>
-            <ul className="list-group mt-2">
-              {acceptedFiles.length > 0 &&
-                acceptedFiles.map((acceptedFile, index) => (
-                  <li
-                    className="list-group-item list-group-item-success"
-                    key={index}
-                  >
-                    {acceptedFile.name}
-                  </li>
-                ))}
-            </ul>
+            <ul className="list-group mt-2">{attachedFiles}</ul>
           </div>
         );
       }}

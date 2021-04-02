@@ -4,14 +4,14 @@ import Drop from "./Drop";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
-import AcceptedFile from "./AcceptedFile";
+import Form from "react-bootstrap/Form";
+import MuiSelect from "./MuiSelect";
 
 const validationError = 450;
 const route = process.env.NODE_ENV.includes("dev")
   ? "http://localhost:8080/api/v1/assemble/"
   : "https://assembler.ece350.com/api/v1/assemble/";
 
-// TODO: Upload second file
 export default function CpuForm() {
   const [state, setState] = React.useState({
     type: "Mem",
@@ -24,7 +24,6 @@ export default function CpuForm() {
     const target = event.target;
     const name = target.name;
     const value = target.value;
-    // alert('Updated input element with name: ' + name + ' and value: ' + value);
     setState({
       [name]: value,
     });
@@ -43,8 +42,6 @@ export default function CpuForm() {
   };
 
   const onFileAccept = (acceptedFiles) => {
-    // console.log("accepted files in cpu form: ");
-    console.log(acceptedFiles);
     acceptedFiles.forEach((file) => {
       console.log(`file.name: ${file.name}`);
       if (isAssemblyFile(file.name)) {
@@ -114,33 +111,65 @@ export default function CpuForm() {
     event.preventDefault();
   };
 
+  const fileTypeOptions = (
+    <>
+      <option value="Mem">Mem</option>
+      <option value="Mif">Mif</option>
+      <option value="Logism">Logism</option>
+    </>
+  );
+  const baseOptions = (
+    <>
+      {/* <option value="HEX">16 (hex)</option> */}
+      <option value="BIN">2 (binary)</option>
+      {/* <option value="DEC">10 (decimal)</option> */}
+    </>
+  );
+
   return (
     <>
       <ToastContainer />
+      <Form>
+        <Form.Group>
+          <Form.File
+            label={
+              <>
+                <h3>Upload File to Assemble</h3>
+                <p>Please upload a properly formatted MIPS file</p>
+              </>
+            }
+            id="assemble=file"
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.File
+            label={
+              <>
+                <h3>Upload Custom ISA</h3>
+                <p>
+                  Please upload an XML file with your additional instructions
+                </p>
+              </>
+            }
+            id="custom-isa"
+          />
+        </Form.Group>
+      </Form>
       <form onSubmit={handleSubmit}>
-        <Drop onFileAccept={onFileAccept} />
+        {/* <Drop onFileAccept={onFileAccept} /> */}
         <div className="select-options">
-          <select
-            className="selectpicker m-2"
-            name="type"
+          <MuiSelect
+            options={fileTypeOptions}
             value={state.type}
-            onChange={handleInputChange}
-          >
-            <option value="Mem">Mem</option>
-            <option value="Mif">Mif</option>
-            <option value="Logism">Logism</option>
-            {/* <option value="Txt">Text</option> */}
-          </select>
-          <select
-            className="selectpicker"
-            name="base"
+            setValue={(value) => setState({ ...state, type: value })}
+            label="File Type"
+          />
+          <MuiSelect
+            options={baseOptions}
             value={state.base}
-            onChange={handleInputChange}
-          >
-            {/* <option value="HEX">16 (hex)</option> */}
-            <option value="BIN">2 (binary)</option>
-            {/* <option value="DEC">10 (decimal)</option> */}
-          </select>
+            setValue={(value) => setState({ ...state, base: value })}
+            label="Base"
+          />
         </div>
         <input
           type="submit"
