@@ -70,7 +70,7 @@ export default function Converter() {
                 onChange={(e) => {
                   const value = e.target.value;
                   const regex = new RegExp("^[0123456789abcdef]+$");
-                  if (regex.test(value)) {
+                  if (regex.test(value) || value == "") {
                     setState({ ...state, fromValue: value });
                   }
                 }}
