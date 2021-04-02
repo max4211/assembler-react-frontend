@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ISA>
+    <Instruction>
+        <Name>max</Name>
+        <Type>R</Type>
+        <Code>01010</Code>
+    </Instruction>
+    <Instruction>
+        <Name>superJump</Name>
+        <Type>JI</Type>
+        <Code>11010</Code>
+    </Instruction>
+    <Instruction>
+        <Name>board</Name>
+        <Type>I</Type>
+        <Code>01111</Code>
+    </Instruction>
+    <Instruction>
+        <Name>custom</Name>
+        <Type>JII</Type>
+        <Code>11111</Code>
+    </Instruction>
+</ISA>

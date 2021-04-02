@@ -17,6 +17,7 @@
     "react-bootstrap-select": "^0.14.0",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "react-toastify": "^7.0.3",
     "xsd-schema-validator": "^0.6.0"

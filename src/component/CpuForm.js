@@ -5,11 +5,19 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import Button from "@material-ui/core/Button";
 import Form from "react-bootstrap/Form";
 import MuiSelect from "./MuiSelect";
 import Logger from "./Logger";
 import SettingsIcon from "@material-ui/icons/Settings";
+import GetAppIcon from "@material-ui/icons/GetApp";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
 
 const validationError = 450;
 const route = process.env.NODE_ENV.includes("dev")
@@ -165,6 +173,7 @@ export default function CpuForm() {
       }
     }
   };
+  const classes = useStyles();
 
   return (
     <>
@@ -177,13 +186,26 @@ export default function CpuForm() {
           handleChange={checkMIPSFile}
           file={state.file}
         />
-        <MuiFileUpload
-          accept={acceptISA}
-          label="ISA Config"
-          id={idISA}
-          handleChange={checkISAFile}
-          file={state.isa}
-        />
+        <span>
+          <MuiFileUpload
+            accept={acceptISA}
+            label="ISA Config"
+            id={idISA}
+            handleChange={checkISAFile}
+            file={state.isa}
+          />
+          <Button
+            variant="contained"
+            color="secondary"
+            download
+            target="_blank"
+            href="/files/templateISA.xml"
+            className={classes.button}
+            startIcon={<GetAppIcon />}
+          >
+            ISA Template
+          </Button>
+        </span>
         <div className="select-options">
           <MuiSelect
             options={fileTypeOptions}
