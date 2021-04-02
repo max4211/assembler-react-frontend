@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
 import Form from "react-bootstrap/Form";
 import MuiSelect from "./MuiSelect";
+import Logger from "./Logger";
 
 const validationError = 450;
 const route = process.env.NODE_ENV.includes("dev")
@@ -13,6 +14,7 @@ const route = process.env.NODE_ENV.includes("dev")
   : "https://assembler.ece350.com/api/v1/assemble/";
 
 export default function CpuForm() {
+  const logger = new Logger();
   const [state, setState] = React.useState({
     type: "Mem",
     base: "BIN",
@@ -39,13 +41,21 @@ export default function CpuForm() {
     );
   };
 
+  const downloadFile = (data, filename) => {
+    const url = window.URL.createObjectURL(new Blob([data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", filename);
+    document.body.appendChild(link);
+    link.click();
+  };
+
   const handleSubmit = (event) => {
     if (state.file == null) {
       toast.error("Please select a file to assemble");
       return;
     }
     const myURL = route.concat(state.type, "/", state.base);
-    console.log(myURL);
 
     // TODO: Refactor file download
     const formData = new FormData();
@@ -60,38 +70,28 @@ export default function CpuForm() {
     })
       .then((response) => {
         /* Log information for debug */
-        console.log("token", response);
-        console.log("headers", response.headers);
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement("a");
-        const fileName = response.headers["pragma"];
-
+        const data = response.data;
+        const filename = response.headers["pragma"];
+        downloadFile(data, filename);
         toast.success("Successfully assembled file!");
-
-        link.href = url;
-        link.setAttribute("download", fileName);
-        document.body.appendChild(link);
-        link.click();
       })
       .catch((error) => {
-        console.log(error);
+        logger.log("error: ");
+        logger.log(error);
+        if (error.response) {
+          logger.log("error response: ");
+          logger.log(error.response);
+        }
         if (
           error.response &&
           error.response.status &&
           error.response.status === validationError
         ) {
-          const url = window.URL.createObjectURL(
-            new Blob([error.response.data])
-          );
-          const link = document.createElement("a");
-          const fileName = error.response.headers["pragma"];
-
+          const response = error.response;
+          const data = response.data;
+          const filename = response.headers["pragma"];
+          downloadFile(data, filename);
           toast.error("File failed validation, please address errors");
-
-          link.href = url;
-          link.setAttribute("download", fileName);
-          document.body.appendChild(link);
-          link.click();
         } else {
           toast.error(
             "Sorry, could not assemble file, please try again with properly formatted .s file"
@@ -127,9 +127,9 @@ export default function CpuForm() {
     return null;
   };
   const checkMIPSFile = () => {
-    console.log("Checking MIPS File");
+    logger.log("Checking MIPS File");
     const file = getFile(idMIPS);
-    console.log(file);
+    logger.log(file);
     if (file && file.name) {
       if (isValidMIPSFile(file)) {
         setState({
@@ -140,9 +140,9 @@ export default function CpuForm() {
     }
   };
   const checkISAFile = () => {
-    console.log("Checking ISA File");
+    logger.log("Checking ISA File");
     const file = getFile(idISA);
-    console.log(file);
+    logger.log(file);
     if (file) {
       if (isValidISAFile(file)) {
         setState({
