@@ -21,15 +21,18 @@ export default function CpuForm() {
     isa: null,
   });
 
+  const isType = (filename, extension) =>
+    filename.toLowerCase().includes(extension);
   const isValidISAFile = (file) => {
-    const lower = file.name.toLowerCase();
-    return lower.includes(".xml");
+    const filename = file.name;
+    return isType(filename, ".xml");
   };
-
   const isValidMIPSFile = (file) => {
-    const lower = file.name.toLowerCase();
+    const filename = file.name;
     return (
-      lower.includes(".s") || lower.inclues(".txt") || lower.includes(".text")
+      isType(filename, ".s") ||
+      isType(filename, ".txt") ||
+      isType(filename, ".text")
     );
   };
 
@@ -119,22 +122,26 @@ export default function CpuForm() {
     console.log("Checking MIPS File");
     const file = getFile(idMIPS);
     console.log(file);
-    if (isValidMIPSFile(file)) {
-      setState({
-        ...state,
-        file: file,
-      });
+    if (file && file.name) {
+      if (isValidMIPSFile(file)) {
+        setState({
+          ...state,
+          file: file,
+        });
+      }
     }
   };
   const checkISAFile = () => {
     console.log("Checking ISA File");
     const file = getFile(idISA);
     console.log(file);
-    if (isValidISAFile(file)) {
-      setState({
-        ...state,
-        isa: file,
-      });
+    if (file) {
+      if (isValidISAFile(file)) {
+        setState({
+          ...state,
+          isa: file,
+        });
+      }
     }
   };
 
