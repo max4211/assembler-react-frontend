@@ -74,8 +74,12 @@ export default function CpuForm() {
         link.click();
       })
       .catch((error) => {
-        console.log(error.response);
-        if (error.response.status === validationError) {
+        console.log(error);
+        if (
+          error.response &&
+          error.response.status &&
+          error.response.status === validationError
+        ) {
           const url = window.URL.createObjectURL(
             new Blob([error.response.data])
           );
